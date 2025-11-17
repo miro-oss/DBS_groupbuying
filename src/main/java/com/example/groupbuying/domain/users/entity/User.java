@@ -20,7 +20,7 @@ import java.util.List;
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
@@ -54,4 +54,12 @@ public class User extends BaseEntity {
         submission.setBuyer(this); // 양방향 동기화
     }
 
+    public void updateProfile(String nickname, String phone) {
+        if (nickname != null) {
+            this.nickname = nickname;
+        }
+        if (phone != null) {
+            this.phone = phone;
+        }
+    }
 }
