@@ -87,4 +87,38 @@ public class Form extends BaseEntity {
         this.submissions.add(submission);
         submission.setForm(this);   // 양방향 동기화
     }
+
+    // Form.java 안에 아래 메서드들 추가
+
+    public void updateForm(
+            String title,
+            String description,
+            BigDecimal pricePerUnit,
+            String imageUrl,
+            LocalDateTime orderDate,
+            String location,
+            LocalDateTime tradeTime,
+            String accountBank,
+            String accountNumber,
+            String accountName,
+            LocalDateTime deadline,
+            Category category
+    ) {
+        if (title != null) this.title = title;
+        if (description != null) this.description = description;
+        if (pricePerUnit != null) this.pricePerUnit = pricePerUnit;
+        if (imageUrl != null) this.imageUrl = imageUrl;
+        if (orderDate != null) this.orderDate = orderDate;
+        if (location != null) this.location = location;
+        if (tradeTime != null) this.tradeTime = tradeTime;
+        if (accountBank != null) this.accountBank = accountBank;
+        if (accountNumber != null) this.accountNumber = accountNumber;
+        if (accountName != null) this.accountName = accountName;
+        if (deadline != null) this.deadline = deadline;
+        if (category != null) this.category = category;
+    }
+
+    public void close() {
+        this.status = FormStatus.CLOSED;
+    }
 }
