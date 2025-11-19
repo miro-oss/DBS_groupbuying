@@ -32,8 +32,16 @@ public class FormController {
 
     @GetMapping
     public ApiResponse<List<FormResDTO.FormSummaryDTO>> getForms(
-            @ModelAttribute FormReqDTO.SearchDTO search
+            @RequestParam(required = false) Long categoryId,
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String keyword
     ) {
+        FormReqDTO.SearchDTO search = FormReqDTO.SearchDTO.builder()
+                .categoryId(categoryId)
+                .status(status)
+                .keyword(keyword)
+                .build();
+
         var result = formQueryService.getForms(search);
         return ApiResponse.onSuccess(FormSuccessCode.GET_FORM_LIST_SUCCESS, result);
     }

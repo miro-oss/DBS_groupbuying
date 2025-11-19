@@ -25,6 +25,9 @@ public enum UsersSuccessCode implements BaseSuccessCode {
     UPDATE_PROFILE_SUCCESS(HttpStatus.OK,
             "USER200_3",
             "회원 정보가 성공적으로 수정되었습니다."),
+    DELETE_USER_SUCCESS(HttpStatus.OK,
+            "USER200_4",
+            "회원 탈퇴가 완료되었습니다."),
     ;
 
     private final HttpStatus status;

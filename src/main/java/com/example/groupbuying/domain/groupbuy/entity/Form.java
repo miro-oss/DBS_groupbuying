@@ -88,8 +88,6 @@ public class Form extends BaseEntity {
         submission.setForm(this);   // 양방향 동기화
     }
 
-    // Form.java 안에 아래 메서드들 추가
-
     public void updateForm(
             String title,
             String description,
