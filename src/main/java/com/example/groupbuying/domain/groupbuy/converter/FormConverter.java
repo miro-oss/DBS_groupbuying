@@ -8,7 +8,7 @@ import com.example.groupbuying.domain.users.entity.User;
 
 public class FormConverter {
 
-    // 📌 Form 생성 Entity 변환
+    // Form 생성
     public static Form toFormEntity(User seller, Category category, FormReqDTO.CreateFormDTO dto) {
         return Form.builder()
                 .seller(seller)
@@ -27,7 +27,7 @@ public class FormConverter {
                 .build();
     }
 
-    // 📌 생성 응답
+    //생성 응답
     public static FormResDTO.CreateFormResultDTO toCreateFormResultDTO(Form form) {
         return FormResDTO.CreateFormResultDTO.builder()
                 .formId(form.getId())
@@ -48,7 +48,7 @@ public class FormConverter {
                 .build();
     }
 
-    // 📌 요약 (리스트)
+    // 요약 (리스트)
     public static FormResDTO.FormSummaryDTO toSummaryDTO(Form form) {
         return FormResDTO.FormSummaryDTO.builder()
                 .formId(form.getId())
@@ -61,7 +61,7 @@ public class FormConverter {
                 .build();
     }
 
-    // 📌 상세
+    // 상세
     public static FormResDTO.FormDetailDTO toDetailDTO(Form form) {
         return FormResDTO.FormDetailDTO.builder()
                 .formId(form.getId())

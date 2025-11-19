@@ -36,4 +36,11 @@ public class UsersResDTO {
         private String phone;
     }
 
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    public static class DeleteUserResultDTO {
+        private Long userId;
+    }
+
 }

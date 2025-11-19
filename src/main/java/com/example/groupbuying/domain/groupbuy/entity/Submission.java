@@ -62,4 +62,8 @@ public class Submission extends BaseEntity {
     public void setBuyer(User buyer) {
         this.buyer = buyer;
     }
+
+    public void updatePaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
 }

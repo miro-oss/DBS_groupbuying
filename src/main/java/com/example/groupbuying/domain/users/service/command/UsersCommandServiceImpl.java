@@ -7,17 +7,14 @@ import com.example.groupbuying.domain.users.entity.User;
 import com.example.groupbuying.domain.users.exception.UsersException;
 import com.example.groupbuying.domain.users.exception.code.UsersErrorCode;
 import com.example.groupbuying.domain.users.repository.UsersRepository;
-import com.example.groupbuying.global.apiPayload.exception.GeneralException;
 import com.example.groupbuying.global.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
 public class UsersCommandServiceImpl implements UsersCommandService {
 
     private final UsersRepository usersRepository;
@@ -64,28 +61,20 @@ public class UsersCommandServiceImpl implements UsersCommandService {
         User user = usersRepository.findById(userId)
                 .orElseThrow(() -> new UsersException(UsersErrorCode.USER_NOT_FOUND));
 
-        log.info("updateProfile - before: userId={}, nickname={}, phone={}",
-                userId, user.getNickname(), user.getPhone());
 
         user.updateProfile(request.getNickname(), request.getPhone());
 
-        log.info("updateProfile - after: nickname={}, phone={}",
-                user.getNickname(), user.getPhone());
 
-        // 영속 상태 엔티티라 트랜잭션 커밋 시점에 자동 flush 됨
         return UsersConverter.toProfileDTO(user);
     }
-}
 
-/*    @Override
+    @Override
     @Transactional
-    public UsersResDTO.ProfileDTO updateProfile(Long userId, UsersReqDTO.UpdateProfileDTO request) {
-
+    public void deleteUser(Long userId) {
         User user = usersRepository.findById(userId)
                 .orElseThrow(() -> new UsersException(UsersErrorCode.USER_NOT_FOUND));
 
-        user.updateProfile(request.getNickname(), request.getPhone());
-
-        return UsersConverter.toProfileDTO(user);
+        usersRepository.delete(user);
     }
-    */
+}
+
