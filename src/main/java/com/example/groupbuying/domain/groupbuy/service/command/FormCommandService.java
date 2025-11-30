@@ -9,4 +9,5 @@ public interface FormCommandService {
     FormResDTO.FormDetailDTO updateForm(Long sellerId, Long formId, FormReqDTO.UpdateFormDTO request);
 
     void closeForm(Long sellerId, Long formId);
+    void deleteForm(Long sellerId, Long formId);
 }

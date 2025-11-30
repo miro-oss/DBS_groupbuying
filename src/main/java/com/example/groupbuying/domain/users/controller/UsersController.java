@@ -153,4 +153,42 @@ public class UsersController {
 
         return ApiResponse.onSuccess(UsersSuccessCode.DELETE_USER_SUCCESS, result);
     }
+
+    // 내가 신청한 공구 단건 수정(입금대기상태에서만)
+    @PatchMapping("/submissions/{submissionId}")
+    public ApiResponse<Void> updateMySubmissionInfo(
+            @PathVariable Long submissionId,
+            @RequestBody SubmissionReqDTO.UpdateSubmissionInfoDTO request
+    ){
+        Long buyerId = SecurityUtil.getCurrentUserId();
+        submissionCommandService.updateSubmissionInfoByBuyer(buyerId, submissionId, request);
+        return ApiResponse.onSuccess(
+                SubmissionSuccessCode.UPDATE_SUBMISSION_INFO_SUCCESS, null
+        );
+    }
+
+    @PostMapping("/submissions/{submissionId}")
+    public ApiResponse<SubmissionResDTO.SubmissionDetailDTO> getMySubmissionDetail(
+            @PathVariable Long submissionId
+    ){
+        Long buyerId = SecurityUtil.getCurrentUserId();
+        var result = submissionQueryService.getMySubmissionDetail(buyerId, submissionId);
+        return ApiResponse.onSuccess(
+                SubmissionSuccessCode.GET_MY_SUBMISSION_DETAIL_SUCCESS, result
+        );
+    }
+
+    // 특정 모집글 통계 요약 정보
+    @GetMapping("/forms/{formId}/statistics")
+    public ApiResponse<SubmissionResDTO.FormStatsDTO> getFormStatistics(
+            @PathVariable Long formId
+    ) {
+        Long sellerId = SecurityUtil.getCurrentUserId();
+        var result = submissionQueryService.getFormStatsForSeller(sellerId, formId);
+        return ApiResponse.onSuccess(
+                SubmissionSuccessCode.GET_FORM_STATS_SUCCESS,
+                result
+        );
+    }
+
 }

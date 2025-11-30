@@ -86,4 +86,16 @@ public class FormCommandServiceImpl implements FormCommandService {
 
         form.close();
     }
+
+    @Override
+    public void deleteForm(Long sellerId, Long formId) {
+        Form form = formRepository.findById(formId)
+                .orElseThrow(() -> new FormException(FormErrorCode.FORM_NOT_FOUND));
+
+        if(!form.getSeller().getId().equals(sellerId)) {
+            throw new FormException(FormErrorCode.FORM_FORBIDDEN);
+        }
+
+        formRepository.delete(form);
+    }
 }

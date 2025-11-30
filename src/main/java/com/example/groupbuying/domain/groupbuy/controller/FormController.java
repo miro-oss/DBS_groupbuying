@@ -72,4 +72,13 @@ public class FormController {
         formCommandService.closeForm(sellerId, formId);
         return ApiResponse.onSuccess(FormSuccessCode.CLOSE_FORM_SUCCESS, null);
     }
+
+    @DeleteMapping("/{formId}")
+    public ApiResponse<Void> deleteForm(
+            @PathVariable Long formId
+    ){
+        Long sellerId = SecurityUtil.getCurrentUserId();
+        formCommandService.deleteForm(sellerId, formId);
+        return ApiResponse.onSuccess(FormSuccessCode.DELETE_FORM_SUCCESS, null);
+    }
 }

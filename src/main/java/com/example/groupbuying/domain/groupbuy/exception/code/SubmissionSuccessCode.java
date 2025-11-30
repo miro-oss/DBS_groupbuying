@@ -11,7 +11,13 @@ public enum SubmissionSuccessCode implements BaseSuccessCode {
     GET_MY_SUBMISSION_LIST_SUCCESS(HttpStatus.OK, "SUBMISSION200_1", "내가 신청한 공구 목록 조회에 성공했습니다."),
     GET_FORM_SUBMISSION_LIST_SUCCESS(HttpStatus.OK, "SUBMISSION200_2", "해당 모집글의 신청자 목록 조회에 성공했습니다."),
     UPDATE_SUBMISSION_STATUS_SUCCESS(HttpStatus.OK, "SUBMISSION200_3", "신청 상태 변경에 성공했습니다."),
-    BULK_UPDATE_SUBMISSION_STATUS_SUCCESS(HttpStatus.OK, "SUBMISSION200_4", "신청 상태 일괄 변경에 성공했습니다.")
+    BULK_UPDATE_SUBMISSION_STATUS_SUCCESS(HttpStatus.OK, "SUBMISSION200_4", "신청 상태 일괄 변경에 성공했습니다."),
+    UPDATE_SUBMISSION_INFO_SUCCESS(HttpStatus.OK, "SUBMISSION200_5", "신청 정보 수정에 성공했습니다."),
+    GET_MY_SUBMISSION_DETAIL_SUCCESS(HttpStatus.OK, "SUBMISSION200_6", "내 신청 상세 조회에 성공했습니다."),
+    GET_FORM_STATS_SUCCESS(HttpStatus.OK, "SUBMISSION200_7", "모집글 통계 요약 조회에 성공했습니다."),
+
+
+
     ;
 
     private final HttpStatus status;

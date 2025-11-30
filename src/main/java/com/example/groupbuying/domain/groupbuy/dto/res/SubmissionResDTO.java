@@ -5,6 +5,7 @@ import lombok.Builder;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class SubmissionResDTO {
 
@@ -44,4 +45,37 @@ public class SubmissionResDTO {
             PaymentStatus paymentStatus,
             LocalDateTime submittedAt
     ) {}
+
+    @Builder
+    public record SubmissionDetailDTO(
+            Long submissionId,
+            Long formId,
+            String formTitle,
+            String formImageUrl,
+            BigDecimal pricePerUnit,
+            Long buyerId,
+            String buyerName,
+            String buyerContact,
+            int quantity,
+            PaymentStatus paymentStatus,
+            LocalDateTime submittedAt,
+            String accountBank,
+            String accountNumber,
+            String accountName
+    ){}
+
+    @Builder
+    public record PaymentStatusStatDTO(
+            PaymentStatus status,
+            long count,
+            long totalQuantity
+    ){}
+
+    @Builder
+    public record FormStatsDTO(
+            Long formId,
+            int totalSubmissions,
+            long totalQuantity,
+            List<PaymentStatusStatDTO> statusStats
+    ){}
 }
