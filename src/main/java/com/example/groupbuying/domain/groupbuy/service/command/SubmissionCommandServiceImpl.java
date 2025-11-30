@@ -95,4 +95,26 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
 
         submissions.forEach(s -> s.updatePaymentStatus(status));
     }
+
+    @Override
+    public void updateSubmissionInfoByBuyer(
+            Long buyerId,
+            Long submissionId,
+            SubmissionReqDTO.UpdateSubmissionInfoDTO request
+    ){
+        Submission submission = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> new SubmissionException(SubmissionErrorCode.SUBMISSION404_1));
+
+        if(!submission.getBuyer().getId().equals(buyerId)) {
+            throw new SubmissionException(SubmissionErrorCode.SUBMISSION403_1);
+        }
+        if(submission.getPaymentStatus() != PaymentStatus.WAITING) {
+            throw new SubmissionException(SubmissionErrorCode.SUBMISSION409_2);
+        }
+        submission.updateBuyerInfo(
+                request.buyerName(),
+                request.buyerContact(),
+                request.quantity()
+        );
+    }
 }

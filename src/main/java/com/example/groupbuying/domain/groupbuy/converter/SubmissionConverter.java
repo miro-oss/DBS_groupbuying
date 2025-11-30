@@ -65,4 +65,26 @@ public class SubmissionConverter {
                 .submittedAt(submission.getCreatedAt())
                 .build();
     }
+
+
+    public static SubmissionResDTO.SubmissionDetailDTO toSubmissionDetailDTO(Submission submission) {
+        Form form = submission.getForm();
+
+        return SubmissionResDTO.SubmissionDetailDTO.builder()
+                .submissionId(submission.getId())
+                .formId(form.getId())
+                .formTitle(form.getTitle())
+                .formImageUrl(form.getImageUrl())
+                .pricePerUnit(form.getPricePerUnit())
+                .buyerId(submission.getBuyer().getId())
+                .buyerName(submission.getBuyerName())
+                .buyerContact(submission.getBuyerContact())
+                .quantity(submission.getQuantity())
+                .paymentStatus(submission.getPaymentStatus())
+                .submittedAt(submission.getCreatedAt())
+                .accountBank(form.getAccountBank())
+                .accountNumber(form.getAccountNumber())
+                .accountName(form.getAccountName())
+                .build();
+    }
 }

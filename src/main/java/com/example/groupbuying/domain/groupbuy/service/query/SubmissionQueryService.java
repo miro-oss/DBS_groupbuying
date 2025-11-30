@@ -9,4 +9,8 @@ public interface SubmissionQueryService {
     List<SubmissionResDTO.MySubmissionSummaryDTO> getMySubmissions(Long buyerId);
 
     List<SubmissionResDTO.FormSubmissionDTO> getFormSubmissionsForSeller(Long sellerId, Long formId);
+
+    SubmissionResDTO.SubmissionDetailDTO getMySubmissionDetail(Long buyerId, Long submissionId);
+    SubmissionResDTO.FormStatsDTO getFormStatsForSeller(Long sellerId, Long formId);
+
 }

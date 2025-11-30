@@ -12,7 +12,9 @@ public enum FormSuccessCode implements BaseSuccessCode {
     GET_FORM_DETAIL_SUCCESS(HttpStatus.OK, "FORM200_2", "모집글 상세 조회에 성공했습니다."),
     GET_MY_FORM_LIST_SUCCESS(HttpStatus.OK, "FORM200_3", "내 모집글 목록 조회에 성공했습니다."),
     UPDATE_FORM_SUCCESS(HttpStatus.OK, "FORM200_4", "모집글 수정에 성공했습니다."),
-    CLOSE_FORM_SUCCESS(HttpStatus.OK, "FORM200_5", "모집글 마감에 성공했습니다.")
+    CLOSE_FORM_SUCCESS(HttpStatus.OK, "FORM200_5", "모집글 마감에 성공했습니다."),
+    DELETE_FORM_SUCCESS(HttpStatus.OK, "FORM200_6", "모집글 삭제에 성공했습니다."),
+
     ;
 
 

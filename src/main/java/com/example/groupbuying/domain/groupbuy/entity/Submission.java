@@ -32,6 +32,7 @@ public class Submission extends BaseEntity {
     @Column(name = "submission_id")
     private Long id;
 
+    @Setter
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "form_id", nullable = false)
     private Form form;
@@ -55,15 +56,23 @@ public class Submission extends BaseEntity {
     @Builder.Default
     private PaymentStatus paymentStatus = PaymentStatus.WAITING;
 
-    public void setForm(Form form) {
-        this.form = form;
-    }
-
     public void setBuyer(User buyer) {
         this.buyer = buyer;
     }
 
     public void updatePaymentStatus(PaymentStatus paymentStatus) {
         this.paymentStatus = paymentStatus;
+    }
+
+    public void updateBuyerInfo(String buyerName, String buyerContact, int quantity) {
+        if(buyerName != null && !buyerName.isBlank()) {
+            this.buyerName = buyerName;
+        }
+        if(buyerContact != null && !buyerContact.isBlank()) {
+            this.buyerContact = buyerContact;
+        }
+        if(quantity > 0) {
+            this.quantity = quantity;
+        }
     }
 }

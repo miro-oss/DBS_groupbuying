@@ -27,4 +27,10 @@ public interface SubmissionCommandService {
             List<Long> submissionIds,
             PaymentStatus status
     );
+
+    void updateSubmissionInfoByBuyer(
+            Long buyerId,
+            Long submissionId,
+            SubmissionReqDTO.UpdateSubmissionInfoDTO request
+    );
 }

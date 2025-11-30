@@ -21,18 +21,26 @@ public class UsersCommandServiceImpl implements UsersCommandService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
+    private static final String ALLOWED_EMAIL_DOMAIN = "@dgu.ac.kr";
+
+    private void validateEmailDomain(String email) {
+        String trimmed = email.trim().toLowerCase();
+        if(!trimmed.endsWith(ALLOWED_EMAIL_DOMAIN)) {
+            throw new UsersException(UsersErrorCode.INVALID_EMAIL_DOMAIN);
+        }
+    }
+
     @Override
     @Transactional
-    public UsersResDTO.SignUpResultDTO signUp(UsersReqDTO.SignUpDTO request) {
+    public UsersResDTO.SignUpResultDTO signUp(UsersReqDTO.SignUpDTO request){
+        validateEmailDomain(request.getEmail());
 
-        if (usersRepository.existsByEmail(request.getEmail())) {
+        if(usersRepository.existsByEmail(request.getEmail())) {
             throw new UsersException(UsersErrorCode.DUPLICATE_EMAIL);
         }
 
         String encodedPassword = passwordEncoder.encode(request.getPassword());
-
         User user = UsersConverter.toUser(request, encodedPassword);
-
         User saved = usersRepository.save(user);
 
         return UsersConverter.toSignUpResultDTO(saved);

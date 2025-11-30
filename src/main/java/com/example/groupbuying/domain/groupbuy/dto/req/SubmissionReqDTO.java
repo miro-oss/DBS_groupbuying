@@ -27,4 +27,11 @@ public class SubmissionReqDTO {
             @NotEmpty List<Long> submissionIds,
             @NotNull PaymentStatus paymentStatus
             ){}
+
+    @Builder
+    public record UpdateSubmissionInfoDTO(
+            String buyerName,
+            String buyerContact,
+            @Min(1) int quantity
+    ){}
 }
