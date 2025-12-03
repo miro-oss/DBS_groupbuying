@@ -119,4 +119,5 @@ public class Form extends BaseEntity {
     public void close() {
         this.status = FormStatus.CLOSED;
     }
+    public void reopen() {this.status = FormStatus.OPEN;   }
 }

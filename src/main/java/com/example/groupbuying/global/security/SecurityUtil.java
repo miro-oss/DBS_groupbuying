@@ -12,19 +12,17 @@ public class SecurityUtil {
     public static Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        // 인증 정보 없는 경우
         if (authentication == null || !authentication.isAuthenticated()) {
             throw new GeneralException(GeneralErrorCode.UNAUTHORIZED);
         }
 
         Object principal = authentication.getPrincipal();
 
-        // anonymousUser 처리
         if (principal == null || "anonymousUser".equals(principal)) {
             throw new GeneralException(GeneralErrorCode.UNAUTHORIZED);
         }
 
-        String userIdStr = authentication.getName(); // == principal.toString()
+        String userIdStr = authentication.getName();
 
         try {
             return Long.parseLong(userIdStr);

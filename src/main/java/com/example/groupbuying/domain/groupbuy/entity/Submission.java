@@ -12,19 +12,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(
-        name = "submissions",
-        uniqueConstraints = {
-                @UniqueConstraint(
-                        name = "uq_submission_form_buyer",
-                        columnNames = {"form_id", "buyer_id"}
-                )
-        }
-)
-@AttributeOverride(
-        name = "createdAt",
-        column = @Column(name = "submitted_at")
-)
+@Table(name = "submissions", uniqueConstraints = { @UniqueConstraint(name = "uq_submission_form_buyer", columnNames = {"form_id", "buyer_id"}) })
+@AttributeOverride(name = "createdAt", column = @Column(name = "submitted_at"))
 @EntityListeners(AuditingEntityListener.class)
 public class Submission extends BaseEntity {
     @Id

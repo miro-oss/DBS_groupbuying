@@ -19,7 +19,6 @@ public class CategoryController {
     @GetMapping
     public ApiResponse<List<CategoryResDTO.CategoryDTO>> getCategories() {
         var result = categoryQueryService.getCategories();
-        // 카테고리는 공통코드로 OK 써도 무방
         return ApiResponse.onSuccess(GeneralSuccessCode.OK, result);
     }
 }

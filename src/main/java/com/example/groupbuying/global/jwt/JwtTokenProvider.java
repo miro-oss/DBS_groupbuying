@@ -40,7 +40,6 @@ public class JwtTokenProvider {
         log.info("JwtTokenProvider - key 초기화 완료");
     }
 
-    // 토큰 생성
     public String createAccessToken(Long userId, String email) {
         Date now = new Date();
         Date validity = new Date(now.getTime() + accessTokenExpiration);
@@ -54,7 +53,6 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    // 인증 정보 꺼내기 (role 같은 건 일단 USER 고정)
     public Authentication getAuthentication(String token) {
         Claims claims = parseClaims(token);
         String userId = claims.getSubject();
@@ -62,7 +60,7 @@ public class JwtTokenProvider {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_USER");
 
         return new UsernamePasswordAuthenticationToken(
-                userId, // principal
+                userId,
                 null,
                 Collections.singletonList(authority)
         );

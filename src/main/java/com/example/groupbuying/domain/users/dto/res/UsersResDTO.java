@@ -1,6 +1,5 @@
 package com.example.groupbuying.domain.users.dto.res;
 
-import com.example.groupbuying.domain.users.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

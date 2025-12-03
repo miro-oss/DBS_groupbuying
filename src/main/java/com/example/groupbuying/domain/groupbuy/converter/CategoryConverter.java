@@ -1,4 +1,3 @@
-// CategoryConverter.java
 package com.example.groupbuying.domain.groupbuy.converter;
 
 import com.example.groupbuying.domain.groupbuy.dto.res.CategoryResDTO;

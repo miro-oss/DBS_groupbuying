@@ -32,9 +32,6 @@ public class UsersController {
     private final SubmissionQueryService submissionQueryService;
     private final SubmissionCommandService submissionCommandService;
 
-
-
-    // 회원가입
     @PostMapping("/signup")
     public ApiResponse<UsersResDTO.SignUpResultDTO> signUp(
             @Valid @RequestBody UsersReqDTO.SignUpDTO request
@@ -43,7 +40,6 @@ public class UsersController {
         return ApiResponse.onSuccess(UsersSuccessCode.SIGN_UP_SUCCESS, result);
     }
 
-    // 로그인
     @PostMapping("/login")
     public ApiResponse<UsersResDTO.LoginResultDTO> login(
             @Valid @RequestBody UsersReqDTO.LoginDTO request
@@ -52,7 +48,6 @@ public class UsersController {
         return ApiResponse.onSuccess(UsersSuccessCode.LOGIN_SUCCESS, result);
     }
 
-    // 조회
     @GetMapping("/profile")
     public ApiResponse<UsersResDTO.ProfileDTO> getMyProfile() {
         Long userId = SecurityUtil.getCurrentUserId();
@@ -60,7 +55,6 @@ public class UsersController {
         return ApiResponse.onSuccess(UsersSuccessCode.GET_PROFILE_SUCCESS, profile);
     }
 
-    // 수정
     @PatchMapping("/profile")
     public ApiResponse<UsersResDTO.ProfileDTO> updateMyProfile(
             @Valid @RequestBody UsersReqDTO.UpdateProfileDTO request
@@ -70,7 +64,6 @@ public class UsersController {
         return ApiResponse.onSuccess(UsersSuccessCode.UPDATE_PROFILE_SUCCESS, result);
     }
 
-    // 내가 올린 모집글 보기
     @GetMapping("/forms")
     public ApiResponse<List<FormResDTO.FormSummaryDTO>> getMyForms() {
         Long userId = SecurityUtil.getCurrentUserId();
@@ -78,7 +71,6 @@ public class UsersController {
         return ApiResponse.onSuccess(FormSuccessCode.GET_MY_FORM_LIST_SUCCESS, result);
     }
 
-    // 특정 내 모집글에 들어온 신청자 목록 조회
     @GetMapping("/forms/{formId}/submissions")
     public ApiResponse<List<SubmissionResDTO.FormSubmissionDTO>> getFormSubmissionsForMyForm(
             @PathVariable Long formId
@@ -91,7 +83,6 @@ public class UsersController {
         );
     }
 
-    // 특정 신청자 한 명 상태 변경
     @PatchMapping("/forms/{formId}/submissions/{submissionId}/status")
     public ApiResponse<Void> updateSubmissionStatusFromMyPage(
             @PathVariable Long formId,
@@ -111,7 +102,6 @@ public class UsersController {
         );
     }
 
-    // 선택한 신청자들 상태 일괄 변경
     @PatchMapping("/forms/{formId}/submissions/status/bulk")
     public ApiResponse<Void> bulkUpdateSubmissionStatusFromMyPage(
             @PathVariable Long formId,
@@ -130,7 +120,6 @@ public class UsersController {
         );
     }
 
-    // 내가 신청한 공구
     @GetMapping("/submissions")
     public ApiResponse<List<SubmissionResDTO.MySubmissionSummaryDTO>> getMySubmissions() {
         Long userId = SecurityUtil.getCurrentUserId();
@@ -139,7 +128,6 @@ public class UsersController {
                 com.example.groupbuying.domain.groupbuy.exception.code.SubmissionSuccessCode.GET_MY_SUBMISSION_LIST_SUCCESS, result);
     }
 
-    // 회원 탈퇴
     @DeleteMapping
     public ApiResponse<UsersResDTO.DeleteUserResultDTO> deleteMyAccount() {
         Long userId = SecurityUtil.getCurrentUserId();
@@ -154,7 +142,6 @@ public class UsersController {
         return ApiResponse.onSuccess(UsersSuccessCode.DELETE_USER_SUCCESS, result);
     }
 
-    // 내가 신청한 공구 단건 수정(입금대기상태에서만)
     @PatchMapping("/submissions/{submissionId}")
     public ApiResponse<Void> updateMySubmissionInfo(
             @PathVariable Long submissionId,
@@ -178,7 +165,6 @@ public class UsersController {
         );
     }
 
-    // 특정 모집글 통계 요약 정보
     @GetMapping("/forms/{formId}/statistics")
     public ApiResponse<SubmissionResDTO.FormStatsDTO> getFormStatistics(
             @PathVariable Long formId
