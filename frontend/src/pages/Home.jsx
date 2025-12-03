@@ -32,7 +32,7 @@ export default function Home() {
 
       const res = await api.get('/forms', { params });
       
-      // [수정됨] 데이터를 받자마자 정렬 (모집중 우선 -> 최신순)
+      // 데이터를 받자마자 정렬 (모집중 우선 -> 최신순)
       const sortedList = res.data.result.sort((a, b) => {
           // 1. 상태 정렬: OPEN이 먼저 오도록 (-1)
           if (a.status === 'OPEN' && b.status === 'CLOSED') return -1;

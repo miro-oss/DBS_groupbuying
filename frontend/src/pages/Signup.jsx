@@ -3,7 +3,7 @@ import api from '../api';
 import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
-  // [수정됨] passwordConfirm 상태 추가
+  // passwordConfirm 상태 추가
   const [form, setForm] = useState({
     email: '', 
     password: '', 
@@ -18,13 +18,12 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // [추가됨] 비밀번호 일치 확인 로직
+    // 비밀번호 일치 확인 로직
     if (form.password !== form.passwordConfirm) {
         return alert("⛔ 비밀번호가 일치하지 않습니다.\n다시 확인해주세요!");
     }
 
     try {
-      // 백엔드에는 passwordConfirm을 보낼 필요가 없으므로 제외하고 전송
       const { passwordConfirm, ...requestData } = form;
 
       await api.post('/users/signup', requestData);
@@ -64,7 +63,7 @@ export default function Signup() {
             />
           </div>
 
-          {/* [추가됨] 비밀번호 확인 입력창 */}
+          {/* 비밀번호 확인 입력창 */}
           <div className="form-group">
             <label>비밀번호 확인</label>
             <input 
@@ -75,7 +74,7 @@ export default function Signup() {
                 placeholder="비밀번호를 한 번 더 입력하세요"
                 required 
             />
-            {/* 실시간 안내 문구 (선택사항) */}
+            {/* 실시간 안내 문구 */}
             {form.password && form.passwordConfirm && (
                 <p style={{
                     fontSize:'12px', 

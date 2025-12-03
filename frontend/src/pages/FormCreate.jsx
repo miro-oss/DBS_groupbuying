@@ -44,7 +44,7 @@ export default function FormCreate() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // [추가됨] 날짜 순서 검증 (프론트엔드)
+    // 날짜 순서 검증
     const deadline = new Date(form.deadline);
     const orderDate = new Date(form.orderDate);
     const tradeTime = new Date(form.tradeTime);
@@ -124,7 +124,7 @@ export default function FormCreate() {
           </div>
           
           <h4 style={{marginTop:'20px'}}>일정 및 장소</h4>
-          {/* 입력 순서를 논리적 흐름(마감 -> 주문 -> 수령)에 맞춰 배치하면 더 헷갈리지 않습니다 */}
+          {/* 입력 순서를 논리적 흐름(마감 -> 주문 -> 수령)에 맞춰 배치 */}
           
           <div className="form-group">
             <label>1. 공구 마감일 (이때까지 사람을 모읍니다)</label>

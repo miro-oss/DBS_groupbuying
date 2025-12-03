@@ -7,7 +7,7 @@ export default function FormDetail() {
   const navigate = useNavigate();
   const [form, setForm] = useState(null);
   
-  // [수정됨] 신청 시 입력할 정보들 (이름, 전화번호, 수량)
+  // 신청 시 입력할 정보들 (이름, 전화번호, 수량)
   const [inputs, setInputs] = useState({
     buyerName: '',
     buyerContact: '',
@@ -45,7 +45,7 @@ export default function FormDetail() {
     if (!window.confirm(`${form.title} 공구를 신청하시겠습니까?`)) return;
 
     try {
-      // [수정됨] 입력받은 정보를 백엔드로 전송
+      // 입력받은 정보를 백엔드로 전송
       const res = await api.post(`/forms/${id}/submissions`, {
         buyerName: inputs.buyerName,
         buyerContact: inputs.buyerContact,
@@ -130,7 +130,7 @@ export default function FormDetail() {
                     <p style={{whiteSpace:'pre-wrap', margin:0}}>{form.description}</p>
                 </div>
 
-                {/* --- [수정됨] 신청 입력 폼 영역 --- */}
+                {/* 신청 입력 폼 영역 */}
                 <div style={{marginTop:'30px', borderTop:'2px solid #333', paddingTop:'20px'}}>
                     {isSeller ? (
                         <div style={{display:'flex', gap:'10px'}}>

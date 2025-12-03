@@ -150,7 +150,7 @@ export default function SellerManage() {
                 배송중
               </button>
               
-              {/* [추가됨] 거래완료 버튼 (초록색) */}
+              {/* 거래완료 버튼 */}
               <button 
                 className="btn btn-sm" 
                 onClick={()=>handleBulkUpdate('COMPLETED')} 
