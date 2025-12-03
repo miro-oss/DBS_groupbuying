@@ -33,14 +33,21 @@ public class SubmissionResDTO {
             int quantity,
             PaymentStatus paymentStatus,
             LocalDateTime deadline,
-            LocalDateTime submittedAt
+            LocalDateTime submittedAt,
+            String accountBank,
+            String accountNumber,
+            String accountName,
+            String location,
+            LocalDateTime tradeTime,
+            String sellerPhone
     ) {}
 
     @Builder
     public record FormSubmissionDTO(
             Long submissionId,
             Long buyerId,
-            String buyerName,
+            String buyerName,     // 입금자명
+            String buyerContact,  // [추가됨] 전화번호
             int quantity,
             PaymentStatus paymentStatus,
             LocalDateTime submittedAt

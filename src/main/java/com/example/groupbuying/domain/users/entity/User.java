@@ -46,12 +46,12 @@ public class User extends BaseEntity {
 
     public void addSellingForm(Form form) {
         this.sellingForms.add(form);
-        form.setSeller(this);  // 양방향 동기화
+        form.setSeller(this);
     }
 
     public void addSubmission(Submission submission) {
         this.submissions.add(submission);
-        submission.setBuyer(this); // 양방향 동기화
+        submission.setBuyer(this);
     }
 
     public void updateProfile(String nickname, String phone) {

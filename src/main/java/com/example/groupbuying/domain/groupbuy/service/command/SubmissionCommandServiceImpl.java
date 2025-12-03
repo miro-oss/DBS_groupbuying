@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,12 +42,19 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
         User buyer = usersRepository.findById(buyerId)
                 .orElseThrow(() -> new SubmissionException(SubmissionErrorCode.SUBMISSION404_2));
 
-        if (submissionRepository.existsByFormIdAndBuyerId(formId, buyerId)) {
-            throw new SubmissionException(SubmissionErrorCode.SUBMISSION409_1);
+        Optional<Submission> existingSub = submissionRepository.findByFormIdAndBuyerId(formId, buyerId);
+
+        if (existingSub.isPresent()) {
+            Submission sub = existingSub.get();
+            if (sub.getPaymentStatus() == PaymentStatus.CANCELED) {
+                submissionRepository.delete(sub);
+                submissionRepository.flush();
+            } else {
+                throw new SubmissionException(SubmissionErrorCode.SUBMISSION409_1);
+            }
         }
 
         Submission submission = SubmissionConverter.toSubmissionEntity(form, buyer, request);
-
         Submission saved = submissionRepository.save(submission);
 
         return SubmissionConverter.toCreateSubmissionResultDTO(saved);
@@ -73,6 +81,10 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
             throw new SubmissionException(SubmissionErrorCode.SUBMISSION403_1);
         }
 
+        if (submission.getPaymentStatus() == PaymentStatus.CANCELED) {
+            throw new SubmissionException(SubmissionErrorCode.CANNOT_CHANGE_CANCELED);
+        }
+
         submission.updatePaymentStatus(status);
     }
 
@@ -92,6 +104,13 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
 
         List<Submission> submissions =
                 submissionRepository.findByIdInAndFormId(submissionIds, formId);
+
+        boolean hasCanceled = submissions.stream()
+                .anyMatch(s -> s.getPaymentStatus() == PaymentStatus.CANCELED);
+
+        if (hasCanceled) {
+            throw new SubmissionException(SubmissionErrorCode.CANNOT_CHANGE_CANCELED);
+        }
 
         submissions.forEach(s -> s.updatePaymentStatus(status));
     }

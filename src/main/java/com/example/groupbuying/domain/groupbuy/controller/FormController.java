@@ -9,7 +9,9 @@ import com.example.groupbuying.global.apiPayload.ApiResponse;
 import com.example.groupbuying.global.security.SecurityUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -21,12 +23,13 @@ public class FormController {
     private final FormCommandService formCommandService;
     private final FormQueryService formQueryService;
 
-    @PostMapping
+    @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<FormResDTO.CreateFormResultDTO> createForm(
-            @Valid @RequestBody FormReqDTO.CreateFormDTO request
+            @RequestPart("request") @Valid FormReqDTO.CreateFormDTO request,
+            @RequestPart(value = "image", required = false) MultipartFile image
     ) {
         Long sellerId = SecurityUtil.getCurrentUserId();
-        var result = formCommandService.createForm(sellerId, request);
+        var result = formCommandService.createForm(sellerId, request, image);
         return ApiResponse.onSuccess(FormSuccessCode.FORM201_1, result);
     }
 

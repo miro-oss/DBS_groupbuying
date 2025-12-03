@@ -52,6 +52,12 @@ public class SubmissionConverter {
                 .paymentStatus(submission.getPaymentStatus())
                 .deadline(form.getDeadline())
                 .submittedAt(submission.getCreatedAt())
+                .accountBank(form.getAccountBank())
+                .accountNumber(form.getAccountNumber())
+                .accountName(form.getAccountName())
+                .location(form.getLocation())
+                .tradeTime(form.getTradeTime())
+                .sellerPhone(form.getSeller().getPhone())
                 .build();
     }
 
@@ -60,6 +66,7 @@ public class SubmissionConverter {
                 .submissionId(submission.getId())
                 .buyerId(submission.getBuyer().getId())
                 .buyerName(submission.getBuyerName())
+                .buyerContact(submission.getBuyerContact())
                 .quantity(submission.getQuantity())
                 .paymentStatus(submission.getPaymentStatus())
                 .submittedAt(submission.getCreatedAt())
