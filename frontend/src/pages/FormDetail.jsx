@@ -7,18 +7,16 @@ export default function FormDetail() {
   const navigate = useNavigate();
   const [form, setForm] = useState(null);
   
-  // 신청 시 입력할 정보들 (이름, 전화번호, 수량)
   const [inputs, setInputs] = useState({
     buyerName: '',
     buyerContact: '',
-    quantity: 1
+    quantity: 1 // 기본값 1
   });
   
   const myId = Number(localStorage.getItem('userId'));
 
   useEffect(() => {
     fetchDetail();
-    // 닉네임을 기본 입금자명으로 세팅 (편의성)
     const storedNickname = localStorage.getItem('nickname');
     if(storedNickname) {
         setInputs(prev => ({ ...prev, buyerName: storedNickname }));
@@ -36,23 +34,31 @@ export default function FormDetail() {
       setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
+  const handleQuantityChange = (e) => {
+      const val = e.target.value;
+      if (val !== '' && !/^\d+$/.test(val)) return;
+      
+      setInputs({ ...inputs, quantity: val });
+  };
+
   const handlePurchase = async () => {
-    // 유효성 검사
     if (!inputs.buyerName.trim()) return alert('입금자명을 입력해주세요.');
     if (!inputs.buyerContact.trim()) return alert('전화번호를 입력해주세요.');
-    if (inputs.quantity < 1) return alert('수량은 1개 이상이어야 합니다.');
+    
+    const qtyNum = Number(inputs.quantity);
+    if (!inputs.quantity || !Number.isInteger(qtyNum) || qtyNum < 1) {
+        return alert('수량은 1개 이상의 정수만 입력 가능합니다.');
+    }
 
     if (!window.confirm(`${form.title} 공구를 신청하시겠습니까?`)) return;
 
     try {
-      // 입력받은 정보를 백엔드로 전송
       const res = await api.post(`/forms/${id}/submissions`, {
         buyerName: inputs.buyerName,
         buyerContact: inputs.buyerContact,
-        quantity: Number(inputs.quantity)
+        quantity: qtyNum
       });
 
-      // 신청 성공 시 계좌 정보 보여주기
       const { accountBank, accountNumber, accountName } = res.data.result;
       
       alert(
@@ -94,11 +100,12 @@ export default function FormDetail() {
 
   const isSeller = form.sellerId === myId;
 
+  const totalPrice = (Number(inputs.quantity) || 0) * form.pricePerUnit;
+
   return (
     <div className="container">
       <div className="detail-container">
         <div style={{display:'flex', gap:'30px', flexWrap:'wrap'}}>
-            {/* 왼쪽 이미지 영역 */}
             <div style={{flexShrink:0}}>
                 <img 
                     src={form.imageUrl || 'https://via.placeholder.com/400'} 
@@ -107,7 +114,6 @@ export default function FormDetail() {
                 />
             </div>
             
-            {/* 오른쪽 정보 영역 */}
             <div style={{flex:1, minWidth:'300px'}}>
                 <span className={`status-badge ${form.status === 'OPEN' ? 'bg-open' : 'bg-closed'}`}>
                     {form.status === 'OPEN' ? '모집중' : '마감'}
@@ -130,7 +136,7 @@ export default function FormDetail() {
                     <p style={{whiteSpace:'pre-wrap', margin:0}}>{form.description}</p>
                 </div>
 
-                {/* 신청 입력 폼 영역 */}
+                {/* --- 신청 입력 폼 영역 --- */}
                 <div style={{marginTop:'30px', borderTop:'2px solid #333', paddingTop:'20px'}}>
                     {isSeller ? (
                         <div style={{display:'flex', gap:'10px'}}>
@@ -170,13 +176,15 @@ export default function FormDetail() {
                                         type="number" 
                                         name="quantity"
                                         className="form-control" 
-                                        min="1" 
+                                        min="1"
+                                        step="1"
                                         value={inputs.quantity} 
-                                        onChange={handleChange} 
+                                        onChange={handleQuantityChange}
+                                        onKeyDown={(e) => ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault()}
                                     />
                                 </div>
                                 <div style={{textAlign:'right', marginTop:'10px', fontWeight:'bold', fontSize:'18px', color:'#ff6b00'}}>
-                                    총 금액: {(form.pricePerUnit * inputs.quantity).toLocaleString()}원
+                                    총 금액: {totalPrice.toLocaleString()}원
                                 </div>
                                 
                                 <button className="btn btn-primary btn-block" onClick={handlePurchase} style={{marginTop:'15px', padding:'15px', fontSize:'16px'}}>

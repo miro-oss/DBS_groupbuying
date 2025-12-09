@@ -34,6 +34,7 @@ public class SecurityConfig {
                 .formLogin(form -> form.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
+                                "/",
                                 "/users/signup",
                                 "/users/login",
                                 "/error"
@@ -41,7 +42,7 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/forms/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/images/**").permitAll() // <--- 여기입니다!
+                        .requestMatchers(HttpMethod.GET, "/images/**").permitAll()
 
                         .anyRequest().authenticated()
                 )
