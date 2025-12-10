@@ -1,4 +1,4 @@
-# 🦁 Dongguk University Group Buying Platform (D-GongGu)
+# 🐘Dongguk University Group Buying Platform
 > **신뢰할 수 있는 동국대 학생 전용 공동구매 중개 플랫폼** > 먹튀 없는 안전한 거래를 위한 거래 상태 관리 및 인증 시스템
 
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white)](https://spring.io/)
