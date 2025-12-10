@@ -12,7 +12,18 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "submissions", uniqueConstraints = { @UniqueConstraint(name = "uq_submission_form_buyer", columnNames = {"form_id", "buyer_id"}) })
+@Table(name = "submissions",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uq_submission_form_buyer", columnNames = {"form_id", "buyer_id"})
+        },
+        indexes = {
+                // 1. 특정 폼의 참여자 목록을 등록순(오름차순)으로 조회할 때 최적화
+                @Index(name = "idx_submission_form_submitted_at", columnList = "form_id, submitted_at"),
+
+                // 2. 특정 구매자의 참여 내역을 최신순(내림차순)으로 조회할 때 최적화
+                @Index(name = "idx_submission_buyer_submitted_at", columnList = "buyer_id, submitted_at")
+        }
+)
 @AttributeOverride(name = "createdAt", column = @Column(name = "submitted_at"))
 @EntityListeners(AuditingEntityListener.class)
 public class Submission extends BaseEntity {

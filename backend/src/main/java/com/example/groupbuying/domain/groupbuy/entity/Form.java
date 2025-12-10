@@ -17,7 +17,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Table(name = "forms")
+@Table(name = "forms", indexes = {
+        // 1. 마감 임박 상품 조회 최적화
+        @Index(name = "idx_form_status_deadline", columnList = "status, deadline"),
+
+        // 2. 카테고리별 상품 리스트 조회 최적화
+        @Index(name = "idx_form_category", columnList = "category_id"),
+
+        // 3. 특정 판매자의 폼 조회 최적화
+        @Index(name = "idx_form_seller", columnList = "seller_id")
+})
 @EntityListeners(AuditingEntityListener.class)
 public class Form extends BaseEntity {
     @Id
