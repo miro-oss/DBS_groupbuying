@@ -66,7 +66,7 @@ body {
 }
 
 
-/* --- 카테고리 메뉴바 --- */
+/* 카테고리 메뉴바 */
 .category-bar {
   background-color: white;
   border-bottom: 1px solid #eee;
@@ -102,7 +102,7 @@ body {
 }
 
 
-/* --- 폼 스타일 --- */
+/* 폼 스타일 */
 .form-container {
   background: white;
   padding: 30px;
@@ -128,7 +128,7 @@ body {
 }
 
 
-/* --- 공통 버튼 스타일 --- */
+/* 공통 버튼 스타일 */
 .btn {
   padding: 10px 20px;
   border: none;
@@ -151,7 +151,7 @@ body {
 .btn-sm { padding: 5px 10px; font-size: 12px; }
 
 
-/* --- 리스트 그리드 (카드) --- */
+/* 리스트 그리드 */
 .grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -184,7 +184,7 @@ body {
 .bg-closed { background-color: #6c757d; }
 
 
-/* --- 상세 페이지 --- */
+/* 상세 페이지 */
 .detail-container {
   background: white;
   padding: 30px;
@@ -196,7 +196,7 @@ body {
 .info-label { width: 100px; font-weight: bold; color: #555; flex-shrink: 0;}
 
 
-/* --- 테이블 스타일 --- */
+/* 테이블 스타일 */
 .table { width: 100%; border-collapse: collapse; margin-top: 20px; }
 .table th, .table td {
   padding: 12px;

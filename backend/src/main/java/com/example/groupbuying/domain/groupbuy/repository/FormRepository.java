@@ -11,11 +11,5 @@ import java.util.List;
 public interface FormRepository extends JpaRepository<Form, Long> {
     List<Form> findBySeller(User seller);
 
-    List<Form> findByStatus(FormStatus status);
-
-    List<Form> findByCategory_Id(Long categoryId);
-
-    List<Form> findByTitleContaining(String keyword);
-
     List<Form> findByStatusAndDeadlineBefore(FormStatus status, LocalDateTime now);
 }

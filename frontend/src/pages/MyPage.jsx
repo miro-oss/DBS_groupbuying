@@ -88,7 +88,7 @@ export default function MyPage() {
         <div className="container">
             <h2 style={{borderBottom:'2px solid #333', paddingBottom:'10px'}}>마이페이지</h2>
 
-            {/* 1. 내 정보 */}
+            {/* 내 정보 */}
             <section style={{background:'white', padding:'20px', borderRadius:'8px', marginBottom:'30px'}}>
                 <div style={{display:'flex', justifyContent:'space-between'}}>
                     <h3>내 정보</h3>
@@ -128,7 +128,7 @@ export default function MyPage() {
                 )}
             </section>
 
-            {/* 2. 내가 신청한 공구 */}
+            {/* 내가 신청한 공구 */}
             <section style={{marginBottom:'30px'}}>
                 <h3>내가 신청한 공구 내역</h3>
                 {mySubmissions.length === 0 ? <p>신청 내역이 없습니다.</p> : (
@@ -212,7 +212,7 @@ export default function MyPage() {
                 )}
             </section>
 
-            {/* 3. 내가 올린 공구 */}
+            {/* 내가 올린 공구 */}
             <section>
                 <h3>내가 올린 공구 관리</h3>
                 {myForms.length === 0 ? <p>올린 공구가 없습니다.</p> : (

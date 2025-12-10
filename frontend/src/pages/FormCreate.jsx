@@ -55,10 +55,10 @@ export default function FormCreate() {
     const tradeTime = new Date(form.tradeTime);
 
     if (orderDate <= deadline) {
-      return alert("⛔ 구매 날짜는 공구 마감일보다 늦어야 합니다.\n(마감 후 주문 가능)");
+      return alert(" 구매 날짜는 공구 마감일보다 늦어야 합니다.\n(마감 후 주문 가능)");
     }
     if (tradeTime <= orderDate) {
-      return alert("⛔ 수령 시간은 구매 날짜보다 늦어야 합니다.\n(주문 후 수령 가능)");
+      return alert(" 수령 시간은 구매 날짜보다 늦어야 합니다.\n(주문 후 수령 가능)");
     }
 
     const priceNum = Number(form.pricePerUnit);

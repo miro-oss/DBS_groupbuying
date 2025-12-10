@@ -28,7 +28,7 @@ public class FormScheduler {
         List<Form> expiredForms = formRepository.findByStatusAndDeadlineBefore(FormStatus.OPEN, now);
 
         if (!expiredForms.isEmpty()) {
-            log.info("⏰ 마감 기한이 지난 공구 {}건을 자동으로 마감 처리합니다.", expiredForms.size());
+            log.info("마감 기한이 지난 공구 {}건을 자동으로 마감 처리합니다.", expiredForms.size());
 
             for (Form form : expiredForms) {
                 form.close();

@@ -94,7 +94,7 @@ public class Form extends BaseEntity {
 
     public void addSubmission(Submission submission) {
         this.submissions.add(submission);
-        submission.setForm(this);   // 양방향 동기화
+        submission.setForm(this);
     }
 
     public void updateForm(

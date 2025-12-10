@@ -8,8 +8,6 @@ import java.util.Optional;
 
 public interface SubmissionRepository extends JpaRepository<Submission, Long> {
 
-    boolean existsByFormIdAndBuyerId(Long formId, Long buyerId);
-
     Optional<Submission> findByFormIdAndBuyerId(Long formId, Long buyerId);
 
     List<Submission> findByBuyerIdOrderByCreatedAtDesc(Long buyerId);

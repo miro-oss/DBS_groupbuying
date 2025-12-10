@@ -84,7 +84,7 @@ export default function SellerManage() {
         <div className="container">
             <h2 style={{marginTop:'10px'}}>공구 관리 대시보드</h2>
 
-            {/* 1. 상단 통계 카드 */}
+            {/* 상단 통계 카드 */}
             {stats && (
                 <div style={{
                     background:'white',
@@ -120,7 +120,7 @@ export default function SellerManage() {
                 </div>
             )}
 
-            {/* 2. 일괄 처리 툴바 */}
+            {/* 일괄 처리 */}
             <div style={{
                 display:'flex',
                 justifyContent:'space-between',
@@ -146,7 +146,7 @@ export default function SellerManage() {
                 </div>
             </div>
 
-            {/* 3. 리스트 테이블 */}
+            {/* 리스트 테이블 */}
             <div style={{overflowX:'auto', border:'1px solid #ddd', borderTop:'none', borderRadius:'0 0 8px 8px'}}>
                 <table className="table" style={{background:'white', margin:0, minWidth:'800px'}}>
                     <thead style={{background:'#f8f9fa'}}>

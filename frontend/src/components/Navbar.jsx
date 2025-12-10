@@ -50,7 +50,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* 2. 하단 카테고리 메뉴바 (DB 연동) */}
+      {/* 2. 하단 카테고리 메뉴바 */}
       <div className="category-bar">
         <div className="category-content">
           <button 

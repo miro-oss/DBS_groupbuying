@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 public class FormSubmissionController {
 
     private final SubmissionCommandService submissionCommandService;
-    private final SubmissionQueryService submissionQueryService;
 
     @PostMapping
     public ApiResponse<SubmissionResDTO.CreateSubmissionResultDTO> createSubmission(

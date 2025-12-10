@@ -17,7 +17,7 @@ function App() {
             <Navbar />
             <div style={{minHeight: '80vh'}}>
                 <Routes>
-                    {/* --- 누구나 들어갈 수 있는 페이지 --- */}
+                    {/* 누구나 들어갈 수 있는 페이지 */}
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
@@ -25,11 +25,11 @@ function App() {
 
                     {/* 로그인해야만 들어갈 수 있는 페이지들 */}
                     <Route element={<PrivateRoute />}>
-                        <Route path="/forms/new" element={<FormCreate />} />       {/* 공구 올리기 */}
-                        <Route path="/forms/edit/:id" element={<FormCreate />} />  {/* 공구 수정 */}
-                        <Route path="/mypage" element={<MyPage />} />              {/* 마이페이지 */}
-                        <Route path="/manage/:formId" element={<SellerManage />} /> {/* 판매자 관리 */}
-                        <Route path="/submissions/edit/:id" element={<OrderEdit />} /> {/* 주문 수정 */}
+                        <Route path="/forms/new" element={<FormCreate />} />
+                        <Route path="/forms/edit/:id" element={<FormCreate />} />
+                        <Route path="/mypage" element={<MyPage />} />
+                        <Route path="/manage/:formId" element={<SellerManage />} />
+                        <Route path="/submissions/edit/:id" element={<OrderEdit />} />
                     </Route>
 
                 </Routes>

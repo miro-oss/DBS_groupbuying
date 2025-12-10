@@ -136,7 +136,7 @@ export default function FormDetail() {
                     <p style={{whiteSpace:'pre-wrap', margin:0}}>{form.description}</p>
                 </div>
 
-                {/* --- 신청 입력 폼 영역 --- */}
+                {/* 신청 입력 폼 영역 */}
                 <div style={{marginTop:'30px', borderTop:'2px solid #333', paddingTop:'20px'}}>
                     {isSeller ? (
                         <div style={{display:'flex', gap:'10px'}}>

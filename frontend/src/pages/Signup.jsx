@@ -10,7 +10,6 @@ export default function Signup() {
 
   const handleChange = (e) => setForm({...form, [e.target.name]: e.target.value});
 
-  // [추가됨] 전화번호 전용 핸들러 (숫자와 하이픈만 허용)
   const handlePhoneChange = (e) => {
     const val = e.target.value;
     if (val !== '' && !/^[0-9-]*$/.test(val)) return; // 숫자, - 아니면 무시
@@ -20,14 +19,12 @@ export default function Signup() {
   const handleSignup = async (e) => {
     e.preventDefault();
 
-    // [추가됨] 이메일 도메인 검사
     if (!form.email.endsWith('@dgu.ac.kr')) {
-      return alert("⛔ 학교 이메일(@dgu.ac.kr)만 사용할 수 있습니다.");
+      return alert(" 학교 이메일(@dgu.ac.kr)만 사용할 수 있습니다.");
     }
 
-    // 비밀번호 검사
     if (form.password !== form.passwordConfirm) {
-      return alert("⛔ 비밀번호가 일치하지 않습니다.\n다시 확인해주세요!");
+      return alert(" 비밀번호가 일치하지 않습니다.\n다시 확인해주세요!");
     }
 
     try {
@@ -81,7 +78,7 @@ export default function Signup() {
               />
               {form.password && form.passwordConfirm && (
                   <p style={{fontSize:'12px', marginTop:'5px', color: form.password === form.passwordConfirm ? 'green' : 'red'}}>
-                    {form.password === form.passwordConfirm ? '✅ 비밀번호가 일치합니다.' : '❌ 비밀번호가 일치하지 않습니다.'}
+                    {form.password === form.passwordConfirm ? ' 비밀번호가 일치합니다.' : ' 비밀번호가 일치하지 않습니다.'}
                   </p>
               )}
             </div>
@@ -97,7 +94,7 @@ export default function Signup() {
                   name="phone"
                   className="form-control"
                   value={form.phone}
-                  onChange={handlePhoneChange} // [변경] 전용 핸들러
+                  onChange={handlePhoneChange}
                   placeholder="010-0000-0000"
                   required
               />
