@@ -58,6 +58,7 @@
 본 프로젝트는 **3단계 정규화(3NF)**를 적용하여 데이터 중복을 최소화하고 무결성을 강화하였습니다.
 
 [ERD Diagram]
+
 <img width="400" alt="ERD Diagram" src="https://github.com/user-attachments/assets/151c3869-d1ab-4d20-b5b8-0ca801221779" />
 
 * **Users:** 사용자 정보 및 학교 인증 관리
