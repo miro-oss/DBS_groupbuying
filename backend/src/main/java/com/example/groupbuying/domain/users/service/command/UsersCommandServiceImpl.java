@@ -2,6 +2,7 @@ package com.example.groupbuying.domain.users.service.command;
 
 import com.example.groupbuying.domain.groupbuy.entity.Form;
 import com.example.groupbuying.domain.groupbuy.entity.Submission;
+import com.example.groupbuying.domain.groupbuy.enums.PaymentStatus;
 import com.example.groupbuying.domain.groupbuy.repository.FormRepository;
 import com.example.groupbuying.domain.groupbuy.repository.SubmissionRepository;
 import com.example.groupbuying.domain.users.converter.UsersConverter;
@@ -74,14 +75,28 @@ public class UsersCommandServiceImpl implements UsersCommandService {
         List<Submission> mySubmissions = submissionRepository.findByBuyerIdOrderByCreatedAtDesc(userId);
 
         boolean hasActiveOrders = mySubmissions.stream()
-                .anyMatch(s -> s.getPaymentStatus() != com.example.groupbuying.domain.groupbuy.enums.PaymentStatus.COMPLETED
-                        && s.getPaymentStatus() != com.example.groupbuying.domain.groupbuy.enums.PaymentStatus.CANCELED);
+                .anyMatch(s -> s.getPaymentStatus() != PaymentStatus.COMPLETED
+                        && s.getPaymentStatus() != PaymentStatus.CANCELED);
 
         if (hasActiveOrders) {
             throw new UsersException(UsersErrorCode.CANNOT_LEAVE_WITH_ACTIVE_ORDERS);
         }
 
         List<Form> myForms = formRepository.findBySeller(user);
+
+        for (Form form : myForms) {
+            List<Submission> formSubmissions = submissionRepository.findByFormIdOrderByCreatedAtAsc(form.getId());
+
+            boolean hasActiveSales = formSubmissions.stream()
+                    .anyMatch(s -> s.getPaymentStatus() != PaymentStatus.COMPLETED
+                            && s.getPaymentStatus() != PaymentStatus.CANCELED);
+
+            if (hasActiveSales) {
+
+                throw new UsersException(UsersErrorCode.CANNOT_LEAVE_WITH_ACTIVE_ORDERS);
+            }
+        }
+
         for (Form form : myForms) {
             List<Submission> formSubmissions = submissionRepository.findByFormIdOrderByCreatedAtAsc(form.getId());
             if (!formSubmissions.isEmpty()) {
@@ -89,6 +104,7 @@ public class UsersCommandServiceImpl implements UsersCommandService {
             }
             formRepository.delete(form);
         }
+
         if (!mySubmissions.isEmpty()) {
             submissionRepository.deleteAll(mySubmissions);
         }
