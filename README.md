@@ -9,9 +9,9 @@
 ---
 
 ## 🎥 Project Demo
-시스템의 실제 구동 영상을 확인해보세요. 이미지를 클릭하면 유튜브로 이동합니다.
+시스템의 실제 구동 영상을 확인해보세요.
 
-[![Demo Video](https://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+🔗 https://youtu.be/ieDtXUU1Sxk 
 
 ---
 
