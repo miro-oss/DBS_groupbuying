@@ -27,6 +27,9 @@ public enum UsersErrorCode implements BaseErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,
             "USER404_1",
             "해당 사용자를 찾을 수 없습니다."),
+    CANNOT_LEAVE_WITH_ACTIVE_ORDERS(HttpStatus.BAD_REQUEST,
+            "USER400_3",
+            "진행 중인 거래(입금대기/확인/배송중)가 있어 탈퇴할 수 없습니다. 모두 '거래완료' 또는 '취소' 상태여야 합니다.")
     ;
 
     private final HttpStatus status;

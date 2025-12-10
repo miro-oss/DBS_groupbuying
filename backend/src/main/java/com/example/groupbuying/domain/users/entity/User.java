@@ -44,21 +44,15 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "buyer")
     private List<Submission> submissions = new ArrayList<>();
 
-    public void addSellingForm(Form form) {
-        this.sellingForms.add(form);
-        form.setSeller(this);
-    }
-
-    public void addSubmission(Submission submission) {
-        this.submissions.add(submission);
-        submission.setBuyer(this);
+    public void encodePassword(String password) {
+        this.password = password;
     }
 
     public void updateProfile(String nickname, String phone) {
-        if (nickname != null) {
+        if (nickname != null && !nickname.isBlank()) {
             this.nickname = nickname;
         }
-        if (phone != null) {
+        if (phone != null && !phone.isBlank()) {
             this.phone = phone;
         }
     }

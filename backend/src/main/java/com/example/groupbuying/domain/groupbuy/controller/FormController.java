@@ -57,13 +57,14 @@ public class FormController {
         return ApiResponse.onSuccess(FormSuccessCode.GET_FORM_DETAIL_SUCCESS, result);
     }
 
-    @PatchMapping("/{formId}")
+    @PatchMapping(value = "/{formId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ApiResponse<FormResDTO.FormDetailDTO> updateForm(
             @PathVariable Long formId,
-            @RequestBody FormReqDTO.UpdateFormDTO dto
+            @RequestPart("request") FormReqDTO.UpdateFormDTO dto,
+            @RequestPart(value = "image", required = false) MultipartFile image
     ) {
         Long sellerId = SecurityUtil.getCurrentUserId();
-        var result = formCommandService.updateForm(sellerId, formId, dto);
+        var result = formCommandService.updateForm(sellerId, formId, dto, image);
         return ApiResponse.onSuccess(FormSuccessCode.UPDATE_FORM_SUCCESS, result);
     }
 

@@ -67,6 +67,10 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
             Long submissionId,
             PaymentStatus status
     ) {
+        if (status == PaymentStatus.COMPLETED) {
+            throw new SubmissionException(SubmissionErrorCode.SELLER_CANNOT_COMPLETE);
+        }
+
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new FormException(FormErrorCode.FORM_NOT_FOUND));
 
@@ -95,6 +99,10 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
             List<Long> submissionIds,
             PaymentStatus status
     ) {
+        if (status == PaymentStatus.COMPLETED) {
+            throw new SubmissionException(SubmissionErrorCode.SELLER_CANNOT_COMPLETE);
+        }
+
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new FormException(FormErrorCode.FORM_NOT_FOUND));
 
@@ -135,5 +143,21 @@ public class SubmissionCommandServiceImpl implements SubmissionCommandService {
                 request.buyerContact(),
                 request.quantity()
         );
+    }
+
+    @Override
+    public void confirmTransaction(Long buyerId, Long submissionId) {
+        Submission submission = submissionRepository.findById(submissionId)
+                .orElseThrow(() -> new SubmissionException(SubmissionErrorCode.SUBMISSION404_1));
+
+        if (!submission.getBuyer().getId().equals(buyerId)) {
+            throw new SubmissionException(SubmissionErrorCode.SUBMISSION403_1);
+        }
+
+        if (submission.getPaymentStatus() != PaymentStatus.SHIPPING) {
+            throw new SubmissionException(SubmissionErrorCode.BUYER_CANNOT_COMPLETE);
+        }
+
+        submission.updatePaymentStatus(PaymentStatus.COMPLETED);
     }
 }

@@ -9,8 +9,7 @@ public interface UsersCommandService {
 
     UsersResDTO.LoginResultDTO login(UsersReqDTO.LoginDTO request);
 
-    UsersResDTO.ProfileDTO updateProfile(Long userId, UsersReqDTO.UpdateProfileDTO request);
+    void updateProfile(UsersReqDTO.UpdateProfileDTO request);
 
-    void deleteUser(Long userId);
-
+    void deleteUser();
 }

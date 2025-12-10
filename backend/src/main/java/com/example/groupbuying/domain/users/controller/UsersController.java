@@ -56,12 +56,9 @@ public class UsersController {
     }
 
     @PatchMapping("/profile")
-    public ApiResponse<UsersResDTO.ProfileDTO> updateMyProfile(
-            @Valid @RequestBody UsersReqDTO.UpdateProfileDTO request
-    ) {
-        Long userId = SecurityUtil.getCurrentUserId();
-        UsersResDTO.ProfileDTO result = usersCommandService.updateProfile(userId, request);
-        return ApiResponse.onSuccess(UsersSuccessCode.UPDATE_PROFILE_SUCCESS, result);
+    public ApiResponse<UsersResDTO.ProfileDTO> updateProfile(@RequestBody @Valid UsersReqDTO.UpdateProfileDTO request) {
+        usersCommandService.updateProfile(request);
+        return ApiResponse.onSuccess(UsersSuccessCode.UPDATE_PROFILE_SUCCESS, null);
     }
 
     @GetMapping("/forms")
@@ -131,8 +128,7 @@ public class UsersController {
     @DeleteMapping
     public ApiResponse<UsersResDTO.DeleteUserResultDTO> deleteMyAccount() {
         Long userId = SecurityUtil.getCurrentUserId();
-
-        usersCommandService.deleteUser(userId);
+        usersCommandService.deleteUser();
 
         UsersResDTO.DeleteUserResultDTO result =
                 UsersResDTO.DeleteUserResultDTO.builder()
@@ -163,6 +159,15 @@ public class UsersController {
         return ApiResponse.onSuccess(
                 SubmissionSuccessCode.GET_MY_SUBMISSION_DETAIL_SUCCESS, result
         );
+    }
+
+    @PatchMapping("/submissions/{submissionId}/confirm")
+    public ApiResponse<Void> confirmTransaction(
+            @PathVariable Long submissionId
+    ) {
+        Long buyerId = SecurityUtil.getCurrentUserId();
+        submissionCommandService.confirmTransaction(buyerId, submissionId);
+        return ApiResponse.onSuccess(SubmissionSuccessCode.UPDATE_SUBMISSION_STATUS_SUCCESS, null);
     }
 
     @GetMapping("/forms/{formId}/statistics")

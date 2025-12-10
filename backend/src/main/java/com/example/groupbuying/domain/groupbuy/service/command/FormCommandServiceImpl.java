@@ -93,13 +93,33 @@ public class FormCommandServiceImpl implements FormCommandService {
     }
 
     @Override
-    public FormResDTO.FormDetailDTO updateForm(Long sellerId, Long formId, FormReqDTO.UpdateFormDTO dto) {
+    public FormResDTO.FormDetailDTO updateForm(Long sellerId, Long formId, FormReqDTO.UpdateFormDTO dto, MultipartFile image) {
 
         Form form = formRepository.findById(formId)
                 .orElseThrow(() -> new FormException(FormErrorCode.FORM_NOT_FOUND));
 
         if (!form.getSeller().getId().equals(sellerId)) {
             throw new FormException(FormErrorCode.FORM_FORBIDDEN);
+        }
+
+        String newImageUrl = null;
+        if (image != null && !image.isEmpty()) {
+            try {
+                String uploadDir = System.getProperty("user.dir") + "/uploads";
+                File dir = new File(uploadDir);
+                if (!dir.exists()) dir.mkdirs();
+
+                String originalFilename = image.getOriginalFilename();
+                String saveFileName = UUID.randomUUID() + "_" + originalFilename;
+
+                File saveFile = new File(uploadDir, saveFileName);
+                image.transferTo(saveFile);
+
+                newImageUrl = "http://localhost:8080/images/" + saveFileName;
+
+            } catch (IOException e) {
+                throw new RuntimeException("파일 업로드 실패", e);
+            }
         }
 
         LocalDateTime newDeadline = (dto.deadline() != null) ? dto.deadline() : form.getDeadline();
@@ -123,7 +143,7 @@ public class FormCommandServiceImpl implements FormCommandService {
                 dto.title(),
                 dto.description(),
                 dto.pricePerUnit(),
-                dto.imageUrl(),
+                newImageUrl,
                 dto.orderDate(),
                 dto.location(),
                 dto.tradeTime(),

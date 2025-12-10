@@ -33,4 +33,6 @@ public interface SubmissionCommandService {
             Long submissionId,
             SubmissionReqDTO.UpdateSubmissionInfoDTO request
     );
+
+    void confirmTransaction(Long buyerId, Long submissionId);
 }

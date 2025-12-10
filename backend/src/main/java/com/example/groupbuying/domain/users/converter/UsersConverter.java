@@ -6,12 +6,12 @@ import com.example.groupbuying.domain.users.entity.User;
 
 public class UsersConverter {
 
-    public static User toUser(UsersReqDTO.SignUpDTO dto, String encodedPassword) {
+    public static User toUser(UsersReqDTO.SignUpDTO request) {
         return User.builder()
-                .nickname(dto.getNickname())
-                .email(dto.getEmail())
-                .password(encodedPassword)
-                .phone(dto.getPhone())
+                .nickname(request.getNickname())
+                .email(request.getEmail())
+                .password(request.getPassword())
+                .phone(request.getPhone())
                 .build();
     }
 
